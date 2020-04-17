@@ -31,7 +31,7 @@ class Vector():
 
 class ParseMaze():
     """
-    The maze
+    Parsing the maze
     """
     def __init__(self, filename, legend):
 
@@ -64,18 +64,28 @@ class ParseMaze():
         self.space[v.y + (self.h * v.x)] = value
 
     def get_character(self, element):
+        """
+        Get the character holding a position in the maze
+        """
         if not element or element == ' ':
             return ' '
         return element.origin_char
 
     def char_element(self, legend, ch):
+        """
+        Reference each character by an object
+        """
         if ch == ' ':
             return None
-        element = legend[ch]()
-        element.origin_char = ch
+        element = legend[ch](
+        )  # an example of legend is 'b' which is reference by an object Bot()
+        element.origin_char = ch  # create a new field in the object
         return element
 
     def parser(self):
+        """
+        Get all the characters and create a one-dimensional array
+        """
         for x in range(self.h):
             for y in range(self.w):
                 self.set_position(
@@ -83,6 +93,9 @@ class ParseMaze():
                     Vector(x, y))
 
     def set_start_goal(self):
+        """
+        Get the starting position for the bot and the goal
+        """
         self.parser()  # parse the maze
 
         for index, element in enumerate(self.space):
@@ -95,6 +108,9 @@ class ParseMaze():
                 self.goal = c
 
     def output(self, sol, count):
+        """
+        Humanize the output
+        """
         for x in range(self.h):
             out = ''
             for y in range(self.w):
@@ -118,11 +134,17 @@ class ParseMaze():
 
 
 class Maze(ParseMaze):
+    """
+    Maze
+    """
     def __init__(self, filename, legend):
         super().__init__(filename, legend)
         self.set_start_goal()
 
     def adjacent_coords(self, current_state):
+        """
+        Get all the nearest neighbours for the current visited node
+        """
         directions = {
             'N': (0, 1),
             'E': (1, 0),
@@ -145,7 +167,7 @@ class Maze(ParseMaze):
         return neighbours
 
     def solve(self):
-        dfs = DFS()
+        dfs = BFS()
         count, self.solution = dfs.algorithm(self.start, self.goal,
                                              self.adjacent_coords)
         self.output(self.solution, count)

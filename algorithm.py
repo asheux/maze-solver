@@ -86,7 +86,8 @@ class DFS:
 
 class BFS(DFS):
     def remove(self):
-        node = self.stack[0]
+        node = self.stack[
+            0]  # Removing an item from the list at the zero index (FIRST IN FIRST OUT(FIFO) or queue)
         self.stack = self.stack[1:]
 
         return node
