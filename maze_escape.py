@@ -178,7 +178,7 @@ class Maze(ParseMaze):
         return neighbours
 
     def solve(self):
-        search = DFS() # To test the DFS alternative, use DFS()
+        search = BFS() # To test the DFS alternative, use DFS()
         count, self.solution = search.algorithm(self.start, self.goal,
                                                 self.adjacent_coords)
         self.output(self.solution, count)

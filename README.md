@@ -9,9 +9,13 @@ $ python maze_escape.py
 
 - Example output
 
-```
+NOTES: ß - Bot, █ - Exit
+
 With Depth-First search algothm
 
+![DFS](images/dfs.png?raw=true)
+
+```
 ░░░░░░░
 ░  ░*ß░
 ░  ░* ░
@@ -19,9 +23,13 @@ With Depth-First search algothm
 ░     ░
 ░░░░░░░
 
+```
 
 With Breadth-first search algorithm
 
+![BFS](images/bfs.png?raw=true)
+
+```
 ░░░░░░░
 ░  ░ ß░
 ░  ░ *░
