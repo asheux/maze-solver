@@ -1,3 +1,5 @@
+import random
+
 from os import path
 from algorithm import DFS, BFS
 
@@ -55,13 +57,13 @@ class ParseMaze():
         return (0 <= v.x < self.w) and (0 <= v.y < self.h)
 
     def get_position(self, v):
-        return self.space[v.y + (self.h * v.x)]
+        return self.space[v.y + (self.w * v.x)]
 
     def set_position(self, value, v):
         """
         set the bot to a new position
         """
-        self.space[v.y + (self.h * v.x)] = value
+        self.space[v.y + (self.w * v.x)] = value
 
     def get_character(self, element):
         """
@@ -98,19 +100,27 @@ class ParseMaze():
         """
         self.parser()  # parse the maze
 
+        # Uncomment these lines if you what the bot to start at a random position
+        # s_index = random.randrange(0, len(self.space) - 1,  1)
+        # cr = s_index // self.w, s_index % self.w
+        # self.start = cr
+
         for index, element in enumerate(self.space):
             ch = self.get_character(element)
-            c = index // self.h, index % self.h
+            c = index // self.w, index % self.w
 
             if ch == 'b':
                 self.start = c
-            elif ch == 'e':
+            if ch == 'e':
                 self.goal = c
 
     def output(self, sol, count):
         """
         Humanize the output
         """
+        print()
+        #         print('With Breadth-First search algothm')
+        print()
         for x in range(self.h):
             out = ''
             for y in range(self.w):
@@ -131,6 +141,7 @@ class ParseMaze():
                     else:
                         out += '░'
             print(out)
+        print()
 
 
 class Maze(ParseMaze):
@@ -167,9 +178,9 @@ class Maze(ParseMaze):
         return neighbours
 
     def solve(self):
-        dfs = BFS()
-        count, self.solution = dfs.algorithm(self.start, self.goal,
-                                             self.adjacent_coords)
+        search = DFS() # To test the DFS alternative, use DFS()
+        count, self.solution = search.algorithm(self.start, self.goal,
+                                                self.adjacent_coords)
         self.output(self.solution, count)
 
 
